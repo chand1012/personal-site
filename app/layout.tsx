@@ -107,9 +107,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Startup Developer Portfolio",
+  title: "Chandler L - Full Stack Engineer",
   description:
-    "Building startups with code. Startup-focused developer crafting products that matter.",
+    "Full Stack Engineer with a passion for building products from the ground up that scale and make a difference.",
 };
 
 export default function RootLayout({
