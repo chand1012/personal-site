@@ -1,0 +1,44 @@
+# Dependencies
+node_modules
+
+# Build output (will be created during build)
+.next
+out
+
+# Development files
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test and docs
+*.md
+!README.md
+coverage
+.nyc_output
+
+# Docker files (prevent recursive issues)
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Local development
+.mcp.json
+drizzle
+*.db
+*.sqlite
