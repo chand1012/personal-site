@@ -2,8 +2,7 @@
 /**
  * Standalone GitHub Stats Sync Script
  *
- * Fetches GitHub stats locally and POSTs them to the sync endpoint.
- * This runs outside the Next.js server for better performance and reliability.
+ * Fetches GitHub stats and writes them directly to Redis.
  *
  * Usage:
  *   npx tsx scripts/sync-github-stats.ts
@@ -13,17 +12,21 @@
  *   - GITHUB_TOKEN: GitHub personal access token
  *   - GITHUB_USERNAME: GitHub username to fetch stats for
  *   - GITHUB_ORGS: Comma-separated list of organizations (optional)
- *   - GITHUB_SYNC_API_KEY: API key for the sync endpoint
- *   - SYNC_ENDPOINT_URL: URL of the sync endpoint (default: http://localhost:3030)
+ *   - REDIS_URI: Redis connection URI (default: redis://localhost:6379)
  */
 
 import { config } from "dotenv";
 import axios from "axios";
+import Redis from "ioredis";
 
 // Load environment variables from .env.local
 config({ path: ".env.local" });
 
 const GITHUB_API_BASE = "https://api.github.com";
+const KEY_PREFIX = "github:stats:";
+
+// Initialize Redis client
+const redis = new Redis(process.env.REDIS_URI || "redis://localhost:6379");
 
 interface GitHubRepo {
   id: number;
@@ -228,34 +231,12 @@ function aggregateRepoStats(repos: GitHubRepo[]): {
   return { totalStars, totalForks, starsByOrg };
 }
 
-async function postStats(stats: GitHubStats): Promise<void> {
-  const apiKey = process.env.GITHUB_SYNC_API_KEY;
-  const endpointUrl = process.env.SYNC_ENDPOINT_URL || "http://localhost:3030";
+async function saveToRedis(stats: GitHubStats): Promise<void> {
+  const key = `${KEY_PREFIX}${stats.username}`;
+  console.log(`[Sync] Saving stats to Redis key: ${key}...`);
 
-  if (!apiKey) {
-    throw new Error("GITHUB_SYNC_API_KEY environment variable is not set");
-  }
-
-  console.log(
-    `[Sync] Posting stats to ${endpointUrl}/api/sync-github-stats...`,
-  );
-
-  const response = await axios.post(
-    `${endpointUrl}/api/sync-github-stats`,
-    stats,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-    },
-  );
-
-  if (response.data.success) {
-    console.log(`[Sync] Stats posted successfully!`);
-  } else {
-    throw new Error(response.data.error || "Unknown error");
-  }
+  await redis.set(key, JSON.stringify(stats));
+  console.log(`[Sync] Stats saved successfully!`);
 }
 
 async function main() {
@@ -330,8 +311,8 @@ async function main() {
     console.log(`  - Public Gists: ${stats.publicGists}`);
     console.log(`  - Starred Repos: ${starredRepos.length}`);
 
-    // Post to endpoint
-    await postStats(stats);
+    // Save directly to Redis
+    await saveToRedis(stats);
 
     const duration = ((Date.now() - startTime) / 1000).toFixed(2);
     console.log(`\n[Sync] Completed in ${duration}s`);
@@ -354,6 +335,9 @@ async function main() {
     }
 
     process.exit(1);
+  } finally {
+    // Close Redis connection
+    await redis.quit();
   }
 }
 

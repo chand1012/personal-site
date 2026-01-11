@@ -64,9 +64,6 @@ COPY Procfile ./
 COPY scripts ./scripts
 RUN chmod +x ./scripts/*.sh
 
-# Create data directory for SQLite database
-RUN mkdir -p /app/data
-
 # Create a non-root user for security with a valid shell
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nextjs -u 1001 -G nodejs -s /bin/bash -h /app
@@ -85,8 +82,8 @@ ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 # Sync endpoint should point to localhost since both run in same container
 ENV SYNC_ENDPOINT_URL=http://localhost:3000
-# Default database path (can be overridden via env)
-ENV DB_FILE_NAME=file:/app/data/local.db
+# Redis connection (override in production)
+ENV REDIS_URI=redis://localhost:6379
 
 # Start both processes with overmind
 CMD ["overmind", "start"]

@@ -55,7 +55,7 @@ export function Navbar() {
             }}
             className="text-xl font-semibold text-foreground hover:text-[var(--accent-blue)] transition-colors"
           >
-            Portfolio
+            Chandler
           </Link>
 
           {/* Desktop Navigation */}
