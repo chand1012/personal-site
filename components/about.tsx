@@ -9,6 +9,7 @@ import {
   Server,
   Settings,
   Code,
+  GraduationCap,
 } from "lucide-react";
 
 export function About() {
@@ -28,15 +29,14 @@ export function About() {
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-3 mb-12">
-          <Card className="border-2 hover:border-[var(--accent-blue)]/50 transition-colors">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-12">
+          <Card className="border-2 hover:border-[var(--accent-red)]/50 transition-colors">
             <CardContent className="pt-6">
               <div className="flex flex-col items-center text-center">
-                <Code2 className="h-10 w-10 text-[var(--accent-blue)] mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Clean Code</h3>
+                <GraduationCap className="h-10 w-10 text-[var(--accent-red)] mb-4" />
+                <h3 className="text-lg font-semibold mb-2">Education</h3>
                 <p className="text-sm text-muted-foreground">
-                  Writing maintainable, scalable code that stands the test of
-                  time
+                  B.S. in Computer Science from the University of Akron
                 </p>
               </div>
             </CardContent>
@@ -64,6 +64,19 @@ export function About() {
                 <h3 className="text-lg font-semibold mb-2">Full Stack</h3>
                 <p className="text-sm text-muted-foreground">
                   End-to-end development from database to beautiful UIs
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-2 hover:border-[var(--accent-blue)]/50 transition-colors">
+            <CardContent className="pt-6">
+              <div className="flex flex-col items-center text-center">
+                <Code2 className="h-10 w-10 text-[var(--accent-blue)] mb-4" />
+                <h3 className="text-lg font-semibold mb-2">Clean Code</h3>
+                <p className="text-sm text-muted-foreground">
+                  Writing maintainable, scalable code that stands the test of
+                  time
                 </p>
               </div>
             </CardContent>
