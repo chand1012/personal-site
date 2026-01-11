@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import redis from "@/lib/redis";
 import type { GitHubStats } from "@/lib/github-stats";
 
@@ -5,10 +6,14 @@ const KEY_PREFIX = "github:stats:";
 
 /**
  * Get cached GitHub stats from Redis
+ * Uses connection() to opt into dynamic rendering
  */
 export async function getCachedStats(
   username: string,
 ): Promise<GitHubStats | null> {
+  // Opt into dynamic rendering - fetch fresh data on every request
+  await connection();
+
   const key = `${KEY_PREFIX}${username}`;
   console.log(`[Cache] Getting stats for key: ${key}`);
   console.log(`[Cache] Redis status: ${redis.status}`);
