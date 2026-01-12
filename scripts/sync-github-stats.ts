@@ -176,7 +176,7 @@ interface GitHubStarredRepo {
 
 async function fetchStarredRepos(
   username: string,
-  limit = 3,
+  limit = 6,
 ): Promise<StarredRepo[]> {
   console.log(`[Sync] Fetching starred repos for ${username}...`);
   const headers = getHeaders();
@@ -284,7 +284,7 @@ async function main() {
     const aggregated = aggregateRepoStats(allRepos);
 
     // Fetch starred repos
-    const starredRepos = await fetchStarredRepos(username, 3);
+    const starredRepos = await fetchStarredRepos(username, 6);
 
     // Build stats object
     const stats: GitHubStats = {
