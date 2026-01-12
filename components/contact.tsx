@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Linkedin, Mail } from "lucide-react";
+import { Linkedin } from "lucide-react";
 import Link from "next/link";
 import { SiX, SiGithub } from "@icons-pack/react-simple-icons";
 
@@ -20,7 +20,7 @@ export function Contact() {
                 question about my work? Let's chat!
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Button variant="outline" size="lg" asChild>
+                {/* <Button variant="outline" size="lg" asChild>
                   <Link
                     href="mailto:hello@example.com"
                     className="flex items-center gap-2"
@@ -28,7 +28,7 @@ export function Contact() {
                     <Mail className="h-5 w-5" />
                     Email Me
                   </Link>
-                </Button>
+                </Button> */}
                 <Button variant="outline" size="lg" asChild>
                   <Link
                     href="https://github.com/chand1012"
@@ -42,7 +42,7 @@ export function Contact() {
                 </Button>
                 <Button variant="outline" size="lg" asChild>
                   <Link
-                    href="https://linkedin.com/in/chand1012"
+                    href="https://www.linkedin.com/in/chandlerl2000/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"

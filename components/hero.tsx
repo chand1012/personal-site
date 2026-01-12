@@ -1,10 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { Linkedin, Mail, GitFork, Star } from "lucide-react";
+
+import { Linkedin, GitFork, Star } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { mockGitHubStats, type GitHubStats } from "@/lib/github-stats";
 import { SiGithub as Github } from "@icons-pack/react-simple-icons";
 import { getCachedStats } from "@/lib/github-cache";
+import { LiquidButton } from "@/components/animate-ui/components/buttons/liquid";
+import { Button } from "@/components/animate-ui/components/buttons/button";
 
 export async function Hero() {
   const stats: GitHubStats = (await getCachedStats("chand1012")) || mockGitHubStats;
@@ -83,24 +85,15 @@ export async function Hero() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <Button
-              size="lg"
-              className="bg-[var(--accent-blue)] text-white hover:opacity-90"
-              asChild
-            >
+            <LiquidButton size="lg" variant="ghost" asChild>
               <Link href="#projects">View Projects</Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-[var(--accent-yellow)] text-[var(--accent-yellow)] hover:bg-[var(--accent-yellow)]/10"
-              asChild
-            >
+            </LiquidButton>
+            <Button size="lg" asChild>
               <Link href="#about">Learn More</Link>
             </Button>
-            <Button size="lg" className="bg-(--accent-green) text-white hover:opacity-90" asChild>
+            <LiquidButton size="lg" variant="ghost" asChild>
               <Link href="#github-stats">GitHub Activity</Link>
-            </Button>
+            </LiquidButton>
           </div>
           <div className="flex gap-4 justify-center items-center pt-8">
             <Link
@@ -113,7 +106,7 @@ export async function Hero() {
               <Github className="h-6 w-6" />
             </Link>
             <Link
-              href="https://linkedin.com/in/chand1012"
+              href="https://www.linkedin.com/in/chandlerl2000/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-[var(--accent-blue)] transition-colors"
@@ -121,13 +114,13 @@ export async function Hero() {
             >
               <Linkedin className="h-6 w-6" />
             </Link>
-            <Link
+            {/* <Link
               href="mailto:hello@example.com"
               className="text-muted-foreground hover:text-[var(--accent-red)] transition-colors"
               aria-label="Email"
             >
               <Mail className="h-6 w-6" />
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

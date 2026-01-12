@@ -8,7 +8,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, ExternalLink } from "lucide-react";
-import Link from "next/link";
 import { getCachedStats } from "@/lib/github-cache";
 import { mockGitHubStats, type StarredRepo } from "@/lib/github-stats";
 
@@ -63,7 +62,7 @@ export async function StarredRepos() {
                   )}
                 </div>
                 <CardTitle className="text-xl">
-                  <Link
+                  <a
                     href={repo.url}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -71,7 +70,7 @@ export async function StarredRepos() {
                   >
                     {repo.name}
                     <ExternalLink className="h-4 w-4" />
-                  </Link>
+                  </a>
                 </CardTitle>
                 <CardDescription className="line-clamp-2">
                   {repo.description || "No description available"}
@@ -91,14 +90,14 @@ export async function StarredRepos() {
 
         <div className="text-center mt-8">
           <Button variant="outline" asChild>
-            <Link
+            <a
               href={`https://github.com/${GITHUB_USERNAME}?tab=stars`}
               target="_blank"
               rel="noopener noreferrer"
             >
               View All Stars on GitHub
               <ExternalLink className="h-4 w-4 ml-2" />
-            </Link>
+            </a>
           </Button>
         </div>
       </div>

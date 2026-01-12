@@ -105,24 +105,26 @@ export function getSkillsByCategory(skillList: Skill[] = skills) {
 export function getColorClasses(color: TailwindColor): {
   text: string;
   border: string;
+  hoverText: string;
+  hoverBorder: string;
 } {
-  const colorMap: Record<TailwindColor, { text: string; border: string }> = {
-    "sky-500": { text: "text-sky-500", border: "border-sky-500" },
-    "neutral-500": { text: "text-neutral-500", border: "border-neutral-500" },
-    "cyan-500": { text: "text-cyan-500", border: "border-cyan-500" },
-    "amber-500": { text: "text-amber-500", border: "border-amber-500" },
-    "blue-500": { text: "text-blue-500", border: "border-blue-500" },
-    "orange-500": { text: "text-orange-500", border: "border-orange-500" },
-    "green-500": { text: "text-green-500", border: "border-green-500" },
-    "emerald-600": { text: "text-emerald-600", border: "border-emerald-600" },
-    "emerald-500": { text: "text-emerald-500", border: "border-emerald-500" },
-    "teal-500": { text: "text-teal-500", border: "border-teal-500" },
-    "red-500": { text: "text-red-500", border: "border-red-500" },
-    "pink-500": { text: "text-pink-500", border: "border-pink-500" },
-    "purple-500": { text: "text-purple-500", border: "border-purple-500" },
-    "indigo-500": { text: "text-indigo-500", border: "border-indigo-500" },
-    "yellow-500": { text: "text-yellow-500", border: "border-yellow-500" },
-    "violet-500": { text: "text-violet-500", border: "border-violet-500" },
+  const colorMap: Record<TailwindColor, { text: string; border: string; hoverText: string; hoverBorder: string }> = {
+    "sky-500": { text: "text-sky-500", border: "border-sky-500", hoverText: "hover:text-sky-500", hoverBorder: "hover:border-sky-500" },
+    "neutral-500": { text: "text-neutral-500", border: "border-neutral-500", hoverText: "hover:text-neutral-500", hoverBorder: "hover:border-neutral-500" },
+    "cyan-500": { text: "text-cyan-500", border: "border-cyan-500", hoverText: "hover:text-cyan-500", hoverBorder: "hover:border-cyan-500" },
+    "amber-500": { text: "text-amber-500", border: "border-amber-500", hoverText: "hover:text-amber-500", hoverBorder: "hover:border-amber-500" },
+    "blue-500": { text: "text-blue-500", border: "border-blue-500", hoverText: "hover:text-blue-500", hoverBorder: "hover:border-blue-500" },
+    "orange-500": { text: "text-orange-500", border: "border-orange-500", hoverText: "hover:text-orange-500", hoverBorder: "hover:border-orange-500" },
+    "green-500": { text: "text-green-500", border: "border-green-500", hoverText: "hover:text-green-500", hoverBorder: "hover:border-green-500" },
+    "emerald-600": { text: "text-emerald-600", border: "border-emerald-600", hoverText: "hover:text-emerald-600", hoverBorder: "hover:border-emerald-600" },
+    "emerald-500": { text: "text-emerald-500", border: "border-emerald-500", hoverText: "hover:text-emerald-500", hoverBorder: "hover:border-emerald-500" },
+    "teal-500": { text: "text-teal-500", border: "border-teal-500", hoverText: "hover:text-teal-500", hoverBorder: "hover:border-teal-500" },
+    "red-500": { text: "text-red-500", border: "border-red-500", hoverText: "hover:text-red-500", hoverBorder: "hover:border-red-500" },
+    "pink-500": { text: "text-pink-500", border: "border-pink-500", hoverText: "hover:text-pink-500", hoverBorder: "hover:border-pink-500" },
+    "purple-500": { text: "text-purple-500", border: "border-purple-500", hoverText: "hover:text-purple-500", hoverBorder: "hover:border-purple-500" },
+    "indigo-500": { text: "text-indigo-500", border: "border-indigo-500", hoverText: "hover:text-indigo-500", hoverBorder: "hover:border-indigo-500" },
+    "yellow-500": { text: "text-yellow-500", border: "border-yellow-500", hoverText: "hover:text-yellow-500", hoverBorder: "hover:border-yellow-500" },
+    "violet-500": { text: "text-violet-500", border: "border-violet-500", hoverText: "hover:text-violet-500", hoverBorder: "hover:border-violet-500" },
   };
 
   return colorMap[color];

@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { connection } from "next/server";
 import redis from "@/lib/redis";
 import type { GitHubStats } from "@/lib/github-stats";
@@ -7,8 +8,9 @@ const KEY_PREFIX = "github:stats:";
 /**
  * Get cached GitHub stats from Redis
  * Uses connection() to opt into dynamic rendering
+ * Wrapped with React cache() to deduplicate calls within a single request
  */
-export async function getCachedStats(
+export const getCachedStats = cache(async function _getCachedStatsImpl(
   username: string,
 ): Promise<GitHubStats | null> {
   // Opt into dynamic rendering - fetch fresh data on every request
@@ -51,7 +53,7 @@ export async function getCachedStats(
     }
     return null;
   }
-}
+});
 
 /**
  * Store GitHub stats in Redis (no expiration)
