@@ -5,6 +5,8 @@ import { StarIcon, ForkIcon, GitHubIcon, LinkedInIcon } from "@/lib/og/icons";
 import { GradientBorder } from "@/lib/og/components";
 import { getCachedStats } from "@/lib/github-cache";
 import { mockGitHubStats, type GitHubStats } from "@/lib/github-stats";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 export const runtime = "nodejs";
 
@@ -17,8 +19,10 @@ export async function GET(request: Request) {
   const stats: GitHubStats =
     (await getCachedStats("chand1012")) || mockGitHubStats;
 
-  // Load profile image URL
-  const profileUrl = new URL("/me.jpeg", request.url).toString();
+  // Load profile image as base64 data URL
+  const imagePath = join(process.cwd(), "public", "me.jpeg");
+  const imageBuffer = readFileSync(imagePath);
+  const profileUrl = `data:image/jpeg;base64,${imageBuffer.toString("base64")}`;
 
   const formatNumber = (num: number): string => {
     if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
