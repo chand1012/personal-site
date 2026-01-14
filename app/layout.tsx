@@ -125,7 +125,7 @@ export const metadata: Metadata = {
       "Full Stack Engineer with a passion for building products from the ground up that scale and make a difference.",
     images: [
       {
-        url: "/api/og/hero?theme=dark",
+        url: "https://chand1012.dev/api/og/hero?theme=dark",
         width: 1200,
         height: 630,
         alt: "Chandler L - Full Stack Engineer",
@@ -138,7 +138,7 @@ export const metadata: Metadata = {
     title: "Chandler L - Full Stack Engineer",
     description:
       "Full Stack Engineer with a passion for building products from the ground up that scale and make a difference.",
-    images: ["/api/og/hero?theme=dark"],
+    images: ["https://chand1012.dev/api/og/hero?theme=dark"],
   },
 };
 
