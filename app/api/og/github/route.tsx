@@ -26,36 +26,42 @@ export async function GET(request: Request) {
     {
       title: "Total Stars",
       value: stats.totalStars.toLocaleString(),
+      subtitle: "Across all repositories",
       icon: StarIcon,
       color: c.accentYellow,
     },
     {
       title: "Repositories",
       value: stats.totalRepos.toString(),
+      subtitle: "Public repositories",
       icon: GitHubIcon,
       color: c.accentBlue,
     },
     {
       title: "Followers",
       value: stats.totalFollowers.toString(),
+      subtitle: "GitHub followers",
       icon: UsersIcon,
       color: c.accentGreen,
     },
     {
       title: "Total Forks",
       value: stats.totalForks.toLocaleString(),
+      subtitle: "Forks of my repos",
       icon: ForkIcon,
       color: c.accentRed,
     },
     {
       title: "Following",
       value: stats.following.toString(),
+      subtitle: "Developers I follow",
       icon: UserPlusIcon,
       color: c.accentYellow,
     },
     {
       title: "Public Gists",
       value: stats.publicGists.toString(),
+      subtitle: "Code snippets shared",
       icon: FileCodeIcon,
       color: c.accentBlue,
     },
@@ -77,24 +83,36 @@ export async function GET(request: Request) {
         <div
           style={{
             display: "flex",
-            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
             marginBottom: "32px",
           }}
         >
-          <span
-            style={{ fontSize: 48, fontWeight: 700, color: c.foreground }}
-          >
-            GitHub{" "}
-          </span>
+          <div style={{ display: "flex" }}>
+            <span
+              style={{ fontSize: 48, fontWeight: 700, color: c.foreground }}
+            >
+              GitHub{" "}
+            </span>
+            <span
+              style={{
+                fontSize: 48,
+                fontWeight: 700,
+                color: c.accentGreen,
+                marginLeft: "12px",
+              }}
+            >
+              Activity
+            </span>
+          </div>
           <span
             style={{
-              fontSize: 48,
-              fontWeight: 700,
-              color: c.accentGreen,
-              marginLeft: "12px",
+              fontSize: 24,
+              color: c.mutedForeground,
+              marginTop: "12px",
             }}
           >
-            Activity
+            Building in public, one commit at a time
           </span>
         </div>
 
@@ -133,6 +151,11 @@ export async function GET(request: Request) {
                 >
                   {stat.value}
                 </span>
+                <span
+                  style={{ fontSize: 12, color: c.mutedForeground, marginTop: "4px" }}
+                >
+                  {stat.subtitle}
+                </span>
               </div>
             ))}
           </div>
@@ -166,6 +189,11 @@ export async function GET(request: Request) {
                   style={{ fontSize: 36, fontWeight: 700, color: stat.color }}
                 >
                   {stat.value}
+                </span>
+                <span
+                  style={{ fontSize: 12, color: c.mutedForeground, marginTop: "4px" }}
+                >
+                  {stat.subtitle}
                 </span>
               </div>
             ))}
