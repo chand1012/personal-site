@@ -119,6 +119,27 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   manifest: "/site.webmanifest",
+  openGraph: {
+    title: "Chandler L - Full Stack Engineer",
+    description:
+      "Full Stack Engineer with a passion for building products from the ground up that scale and make a difference.",
+    images: [
+      {
+        url: "/api/og/hero?theme=dark",
+        width: 1200,
+        height: 630,
+        alt: "Chandler L - Full Stack Engineer",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Chandler L - Full Stack Engineer",
+    description:
+      "Full Stack Engineer with a passion for building products from the ground up that scale and make a difference.",
+    images: ["/api/og/hero?theme=dark"],
+  },
 };
 
 export default function RootLayout({
