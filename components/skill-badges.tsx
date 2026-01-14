@@ -24,48 +24,32 @@ const categories: SkillCategoryData[] = (() => {
   ];
 })();
 
-// Count total badges
-const totalBadges = categories.reduce((sum, cat) => sum + cat.skills.length, 0);
-
 export function SkillBadges() {
   const [ref, isInView] = useInView<HTMLDivElement>({
     triggerOnce: true,
     threshold: 0.3,
   });
-  const [activeBadges, setActiveBadges] = useState<Set<number>>(new Set());
+  const [activeCategory, setActiveCategory] = useState<number | null>(null);
   const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     if (isInView && !hasAnimated) {
       setHasAnimated(true);
 
-      // Each badge lights up for 500ms, with 250ms stagger between starts
-      // This creates overlap where ~2 badges are lit at once
-      for (let i = 0; i < totalBadges; i++) {
-        // Turn on badge
+      // Sequential animation: each category title lights up for 1 second
+      categories.forEach((_, index) => {
+        // Start lighting up this category
         setTimeout(() => {
-          setActiveBadges((prev) => new Set(prev).add(i));
-        }, i * 250);
+          setActiveCategory(index);
+        }, index * 1000);
+      });
 
-        // Turn off badge after 500ms
-        setTimeout(() => {
-          setActiveBadges((prev) => {
-            const next = new Set(prev);
-            next.delete(i);
-            return next;
-          });
-        }, i * 250 + 500);
-      }
+      // Turn off all categories after the sequence completes
+      setTimeout(() => {
+        setActiveCategory(null);
+      }, categories.length * 1000);
     }
   }, [isInView, hasAnimated]);
-
-  const getGlobalIndex = (categoryIndex: number, skillIndex: number): number => {
-    let idx = 0;
-    for (let c = 0; c < categoryIndex; c++) {
-      idx += categories[c].skills.length;
-    }
-    return idx + skillIndex;
-  };
 
   return (
     <Card>
@@ -80,28 +64,27 @@ export function SkillBadges() {
           <div className="space-y-6">
             {categories.slice(0, 2).map((category, catIdx) => {
               const Icon = category.icon;
+              const isActive = activeCategory === catIdx;
 
               return (
                 <div key={category.title}>
                   <div className="flex items-center gap-3 mb-3">
                     <Icon className={`h-5 w-5 ${category.iconColor}`} />
-                    <h4 className="text-lg font-semibold">{category.title}</h4>
+                    <h4 className={`text-lg font-semibold transition-colors duration-500 ${
+                      isActive ? category.iconColor : ''
+                    }`}>
+                      {category.title}
+                    </h4>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill, skillIdx) => {
+                    {category.skills.map((skill) => {
                       const colors = getColorClasses(skill.color);
-                      const globalIdx = getGlobalIndex(catIdx, skillIdx);
-                      const isActive = activeBadges.has(globalIdx);
 
                       return (
                         <Badge
                           key={skill.name}
                           variant="outline"
-                          className={`text-sm py-1 px-3 transition-all duration-300 hover:scale-105 ${
-                            isActive
-                              ? `${colors.text} ${colors.border}`
-                              : `text-muted-foreground border-border ${colors.hoverText} ${colors.hoverBorder}`
-                          }`}
+                          className={`text-sm py-1 px-3 transition-all duration-300 hover:scale-105 text-muted-foreground border-border ${colors.hoverText} ${colors.hoverBorder}`}
                         >
                           {skill.name}
                         </Badge>
@@ -118,28 +101,27 @@ export function SkillBadges() {
             {categories.slice(2, 4).map((category, catIdx) => {
               const Icon = category.icon;
               const actualCatIdx = catIdx + 2;
+              const isActive = activeCategory === actualCatIdx;
 
               return (
                 <div key={category.title}>
                   <div className="flex items-center gap-3 mb-3">
                     <Icon className={`h-5 w-5 ${category.iconColor}`} />
-                    <h4 className="text-lg font-semibold">{category.title}</h4>
+                    <h4 className={`text-lg font-semibold transition-colors duration-500 ${
+                      isActive ? category.iconColor : ''
+                    }`}>
+                      {category.title}
+                    </h4>
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {category.skills.map((skill, skillIdx) => {
+                    {category.skills.map((skill) => {
                       const colors = getColorClasses(skill.color);
-                      const globalIdx = getGlobalIndex(actualCatIdx, skillIdx);
-                      const isActive = activeBadges.has(globalIdx);
 
                       return (
                         <Badge
                           key={skill.name}
                           variant="outline"
-                          className={`text-sm py-1 px-3 transition-all duration-300 hover:scale-105 ${
-                            isActive
-                              ? `${colors.text} ${colors.border}`
-                              : `text-muted-foreground border-border ${colors.hoverText} ${colors.hoverBorder}`
-                          }`}
+                          className={`text-sm py-1 px-3 transition-all duration-300 hover:scale-105 text-muted-foreground border-border ${colors.hoverText} ${colors.hoverBorder}`}
                         >
                           {skill.name}
                         </Badge>
