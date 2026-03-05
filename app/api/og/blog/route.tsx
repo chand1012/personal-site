@@ -63,232 +63,238 @@ export async function GET(request: Request) {
   const posts = await getLatestPosts(6);
 
   return new ImageResponse(
-    (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+        height: "100%",
+        backgroundColor: c.background,
+        padding: "40px",
+      }}
+    >
+      {/* Header */}
       <div
         style={{
           display: "flex",
           flexDirection: "column",
-          width: "100%",
-          height: "100%",
-          backgroundColor: c.background,
-          padding: "40px",
+          alignItems: "center",
+          marginBottom: "32px",
         }}
       >
-        {/* Header */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            marginBottom: "32px",
-          }}
-        >
-          <div style={{ display: "flex", fontSize: 44, fontWeight: 700 }}>
-            <span style={{ color: c.foreground }}>Latest </span>
-            <span style={{ color: c.accentRed, marginLeft: "10px" }}>Blog</span>
-            <span style={{ color: c.foreground, marginLeft: "10px" }}> Posts</span>
-          </div>
-          <span
-            style={{ fontSize: 18, color: c.mutedForeground, marginTop: "10px" }}
-          >
-            Thoughts on startups, development, and building products
+        <div style={{ display: "flex", fontSize: 44, fontWeight: 700 }}>
+          <span style={{ color: c.foreground }}>Latest </span>
+          <span style={{ color: c.accentRed, marginLeft: "10px" }}>Blog</span>
+          <span style={{ color: c.foreground, marginLeft: "10px" }}>
+            {" "}
+            Posts
           </span>
         </div>
-
-        {/* Blog Grid - 2 rows x 3 columns */}
-        <div
-          style={{ display: "flex", flexDirection: "column", gap: "16px", flex: 1 }}
+        <span
+          style={{ fontSize: 18, color: c.mutedForeground, marginTop: "10px" }}
         >
-          {/* First row */}
-          <div style={{ display: "flex", gap: "16px", flex: 1 }}>
-            {posts.slice(0, 3).map((post) => (
+          Thoughts on startups, development, and building products
+        </span>
+      </div>
+
+      {/* Blog Grid - 2 rows x 3 columns */}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "16px",
+          flex: 1,
+        }}
+      >
+        {/* First row */}
+        <div style={{ display: "flex", gap: "16px", flex: 1 }}>
+          {posts.slice(0, 3).map((post) => (
+            <div
+              key={post.url}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                flex: 1,
+                backgroundColor: c.card,
+                borderRadius: "12px",
+                border: `2px solid ${c.border}`,
+                overflow: "hidden",
+              }}
+            >
+              {/* Card Header */}
               <div
-                key={post.url}
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  flex: 1,
-                  backgroundColor: c.card,
-                  borderRadius: "12px",
-                  border: `2px solid ${c.border}`,
-                  overflow: "hidden",
+                  padding: "16px 16px 12px 16px",
                 }}
               >
-                {/* Card Header */}
+                {/* Date and reading time */}
                 <div
                   style={{
                     display: "flex",
-                    flexDirection: "column",
-                    padding: "16px 16px 12px 16px",
+                    justifyContent: "space-between",
+                    marginBottom: "8px",
                   }}
                 >
-                  {/* Date and reading time */}
                   <div
                     style={{
                       display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: "8px",
+                      alignItems: "center",
+                      gap: "6px",
+                      fontSize: 11,
+                      color: c.mutedForeground,
                     }}
                   >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "6px",
-                        fontSize: 11,
-                        color: c.mutedForeground,
-                      }}
-                    >
-                      <CalendarIcon color={c.mutedForeground} size={12} />
-                      {new Date(post.date).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "4px",
-                        fontSize: 11,
-                        color: c.mutedForeground,
-                      }}
-                    >
-                      <ClockIcon color={c.mutedForeground} size={12} />
-                      {post.readingTime} min
-                    </div>
+                    <CalendarIcon color={c.mutedForeground} size={12} />
+                    {new Date(post.date).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
                   </div>
-                  <span
+                  <div
                     style={{
-                      fontSize: 15,
-                      fontWeight: 700,
-                      color: c.foreground,
-                      lineHeight: 1.3,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "4px",
+                      fontSize: 11,
+                      color: c.mutedForeground,
                     }}
                   >
-                    {truncateTitle(post.title)}
-                  </span>
+                    <ClockIcon color={c.mutedForeground} size={12} />
+                    {post.readingTime} min
+                  </div>
                 </div>
-
-                {/* Card Content */}
-                <div
+                <span
                   style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    padding: "0 16px 16px 16px",
-                    flex: 1,
-                    justifyContent: "flex-end",
+                    fontSize: 15,
+                    fontWeight: 700,
+                    color: c.foreground,
+                    lineHeight: 1.3,
                   }}
                 >
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                    {post.tags.slice(0, 3).map((tag) => (
-                      <OGBadge key={tag} colors={c}>
-                        {tag}
-                      </OGBadge>
-                    ))}
-                  </div>
-                </div>
+                  {truncateTitle(post.title)}
+                </span>
               </div>
-            ))}
-          </div>
 
-          {/* Second row */}
-          <div style={{ display: "flex", gap: "16px", flex: 1 }}>
-            {posts.slice(3, 6).map((post) => (
+              {/* Card Content */}
               <div
-                key={post.url}
                 style={{
                   display: "flex",
                   flexDirection: "column",
+                  padding: "0 16px 16px 16px",
                   flex: 1,
-                  backgroundColor: c.card,
-                  borderRadius: "12px",
-                  border: `2px solid ${c.border}`,
-                  overflow: "hidden",
+                  justifyContent: "flex-end",
                 }}
               >
-                {/* Card Header */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                  {post.tags.slice(0, 3).map((tag) => (
+                    <OGBadge key={tag} colors={c}>
+                      {tag}
+                    </OGBadge>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Second row */}
+        <div style={{ display: "flex", gap: "16px", flex: 1 }}>
+          {posts.slice(3, 6).map((post) => (
+            <div
+              key={post.url}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                flex: 1,
+                backgroundColor: c.card,
+                borderRadius: "12px",
+                border: `2px solid ${c.border}`,
+                overflow: "hidden",
+              }}
+            >
+              {/* Card Header */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "16px 16px 12px 16px",
+                }}
+              >
+                {/* Date and reading time */}
                 <div
                   style={{
                     display: "flex",
-                    flexDirection: "column",
-                    padding: "16px 16px 12px 16px",
+                    justifyContent: "space-between",
+                    marginBottom: "8px",
                   }}
                 >
-                  {/* Date and reading time */}
                   <div
                     style={{
                       display: "flex",
-                      justifyContent: "space-between",
-                      marginBottom: "8px",
+                      alignItems: "center",
+                      gap: "6px",
+                      fontSize: 11,
+                      color: c.mutedForeground,
                     }}
                   >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "6px",
-                        fontSize: 11,
-                        color: c.mutedForeground,
-                      }}
-                    >
-                      <CalendarIcon color={c.mutedForeground} size={12} />
-                      {new Date(post.date).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "4px",
-                        fontSize: 11,
-                        color: c.mutedForeground,
-                      }}
-                    >
-                      <ClockIcon color={c.mutedForeground} size={12} />
-                      {post.readingTime} min
-                    </div>
+                    <CalendarIcon color={c.mutedForeground} size={12} />
+                    {new Date(post.date).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
                   </div>
-                  <span
+                  <div
                     style={{
-                      fontSize: 15,
-                      fontWeight: 700,
-                      color: c.foreground,
-                      lineHeight: 1.3,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "4px",
+                      fontSize: 11,
+                      color: c.mutedForeground,
                     }}
                   >
-                    {truncateTitle(post.title)}
-                  </span>
+                    <ClockIcon color={c.mutedForeground} size={12} />
+                    {post.readingTime} min
+                  </div>
                 </div>
-
-                {/* Card Content */}
-                <div
+                <span
                   style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    padding: "0 16px 16px 16px",
-                    flex: 1,
-                    justifyContent: "flex-end",
+                    fontSize: 15,
+                    fontWeight: 700,
+                    color: c.foreground,
+                    lineHeight: 1.3,
                   }}
                 >
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                    {post.tags.slice(0, 3).map((tag) => (
-                      <OGBadge key={tag} colors={c}>
-                        {tag}
-                      </OGBadge>
-                    ))}
-                  </div>
+                  {truncateTitle(post.title)}
+                </span>
+              </div>
+
+              {/* Card Content */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: "0 16px 16px 16px",
+                  flex: 1,
+                  justifyContent: "flex-end",
+                }}
+              >
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                  {post.tags.slice(0, 3).map((tag) => (
+                    <OGBadge key={tag} colors={c}>
+                      {tag}
+                    </OGBadge>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
-    ),
+    </div>,
     {
       width: 1200,
       height: 630,
@@ -298,6 +304,6 @@ export async function GET(request: Request) {
         weight: f.weight,
         style: f.style,
       })),
-    }
+    },
   );
 }
