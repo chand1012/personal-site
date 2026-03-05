@@ -42,6 +42,19 @@ function ClockIcon({ color, size = 14 }: { color: string; size?: number }) {
   );
 }
 
+function truncateTitle(title: string, maxChars = 90) {
+  if (title.length <= maxChars) {
+    return title;
+  }
+
+  // Prefer truncating at a word boundary so titles read naturally.
+  const fallbackCutoff = maxChars - 3;
+  const wordBoundary = title.lastIndexOf(" ", fallbackCutoff);
+  const cutoff = wordBoundary > maxChars * 0.6 ? wordBoundary : fallbackCutoff;
+
+  return `${title.slice(0, cutoff).trimEnd()}...`;
+}
+
 export async function GET(request: Request) {
   const theme = getThemeFromRequest(request);
   const c = colors[theme];
@@ -154,9 +167,7 @@ export async function GET(request: Request) {
                       lineHeight: 1.3,
                     }}
                   >
-                    {post.title.length > 45
-                      ? `${post.title.slice(0, 45)}...`
-                      : post.title}
+                    {truncateTitle(post.title)}
                   </span>
                 </div>
 
@@ -250,9 +261,7 @@ export async function GET(request: Request) {
                       lineHeight: 1.3,
                     }}
                   >
-                    {post.title.length > 45
-                      ? `${post.title.slice(0, 45)}...`
-                      : post.title}
+                    {truncateTitle(post.title)}
                   </span>
                 </div>
 
