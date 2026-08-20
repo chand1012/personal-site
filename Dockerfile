@@ -27,6 +27,11 @@ RUN npm ci
 # Copy source code
 COPY . .
 
+# NEXT_PUBLIC_* values are embedded in the browser bundle during `next build`.
+# This is a public widget key; server-only Turnstile values are runtime env vars.
+ARG NEXT_PUBLIC_TURNSTILE_SITE_KEY
+ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY=$NEXT_PUBLIC_TURNSTILE_SITE_KEY
+
 # Build the Next.js application
 RUN npm run build
 

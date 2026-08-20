@@ -8,10 +8,11 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Blog", href: "#blog" },
+  { label: "Work", href: "#projects" },
+  { label: "Experience", href: "#experience" },
+  { label: "Capabilities", href: "#capabilities" },
+  { label: "Writing", href: "#blog" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export function Navbar() {
@@ -55,7 +56,7 @@ export function Navbar() {
             }}
             className="text-xl font-semibold text-foreground hover:text-[var(--accent-blue)] transition-colors"
           >
-            Chandler
+            Chandler L
           </Link>
 
           {/* Desktop Navigation */}

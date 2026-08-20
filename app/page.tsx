@@ -5,7 +5,6 @@ import { Employment } from "@/components/employment";
 import { About } from "@/components/about";
 import { Projects } from "@/components/projects";
 import { Blog } from "@/components/blog";
-import { StarredRepos } from "@/components/starred-repos";
 import { Contact } from "@/components/contact";
 
 export default function Home() {
@@ -13,12 +12,11 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
       <Hero />
-      <About />
-      <Employment />
       <Projects />
+      <Employment />
+      <About />
       <Blog />
       <GitHubStats />
-      <StarredRepos />
       <Contact />
     </main>
   );

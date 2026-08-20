@@ -1,3 +1,4 @@
+/* biome-ignore-all lint/security/noDangerouslySetInnerHtml: Static JSON-LD is escaped before rendering. */
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Geist_Mono } from "next/font/google";
@@ -107,9 +108,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Chandler L - Full Stack Engineer",
+  metadataBase: new URL("https://chand1012.dev"),
+  title: "Chandler L — Senior Startup Product Engineer",
   description:
-    "Full Stack Engineer with a passion for building products from the ground up that scale and make a difference.",
+    "Senior full-stack engineer building AI products, backend systems, infrastructure, and web applications for startups.",
+  alternates: {
+    canonical: "/",
+  },
+  authors: [{ name: "Chandler L", url: "https://chand1012.dev" }],
+  keywords: [
+    "Senior Full Stack Engineer",
+    "Go Engineer",
+    "Node.js Engineer",
+    "AI Product Engineer",
+    "DevOps",
+    "Next.js",
+  ],
   icons: {
     icon: [
       { url: "/favicon.ico" },
@@ -120,26 +134,54 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   openGraph: {
-    title: "Chandler L - Full Stack Engineer",
+    title: "Chandler L — Senior Startup Product Engineer",
     description:
-      "Full Stack Engineer with a passion for building products from the ground up that scale and make a difference.",
+      "Senior full-stack engineer building AI products, backend systems, infrastructure, and web applications for startups.",
+    url: "https://chand1012.dev",
+    siteName: "Chandler L — Portfolio",
     images: [
       {
         url: "https://chand1012.dev/api/og/hero?theme=dark",
         width: 1200,
         height: 630,
-        alt: "Chandler L - Full Stack Engineer",
+        alt: "Chandler L — Senior Startup Product Engineer",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Chandler L - Full Stack Engineer",
+    title: "Chandler L — Senior Startup Product Engineer",
     description:
-      "Full Stack Engineer with a passion for building products from the ground up that scale and make a difference.",
+      "Senior full-stack engineer building AI products, backend systems, infrastructure, and web applications for startups.",
     images: ["https://chand1012.dev/api/og/hero?theme=dark"],
   },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Chandler L",
+  url: "https://chand1012.dev",
+  image: "https://chand1012.dev/me.jpeg",
+  jobTitle: "Senior Full Stack Engineer",
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "The University of Akron",
+  },
+  sameAs: [
+    "https://github.com/chand1012",
+    "https://www.linkedin.com/in/chandlerl2000/",
+    "https://dev.to/chand1012",
+  ],
+  knowsAbout: [
+    "Full-stack software engineering",
+    "Artificial intelligence",
+    "Go",
+    "Node.js",
+    "React",
+    "Cloud infrastructure",
+  ],
 };
 
 export default function RootLayout({
@@ -152,6 +194,12 @@ export default function RootLayout({
       <body
         className={`${publicSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

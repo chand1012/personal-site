@@ -135,3 +135,52 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .evidence-chip {
+    @apply rounded-full border bg-card px-3 py-1.5 text-xs font-medium text-muted-foreground;
+  }
+
+  .proof-stat {
+    @apply flex items-center gap-3 rounded-xl border bg-card px-4 py-3;
+  }
+
+  .section-heading {
+    @apply mb-8 grid items-end gap-4 md:grid-cols-[minmax(0,1.45fr)_minmax(260px,0.7fr)];
+  }
+
+  .section-kicker {
+    @apply mb-2 text-xs font-semibold uppercase tracking-[0.18em];
+  }
+
+  .section-title {
+    @apply text-3xl font-bold tracking-tight sm:text-4xl;
+  }
+
+  .section-summary {
+    @apply max-w-xl text-sm leading-relaxed text-muted-foreground md:justify-self-end;
+  }
+
+  .progressive-details {
+    @apply rounded-md border border-dashed px-3 py-2 text-sm;
+  }
+
+  .progressive-details summary {
+    @apply cursor-pointer font-medium text-muted-foreground transition-colors hover:text-foreground;
+  }
+
+  .progressive-details p {
+    @apply mt-2 leading-relaxed text-muted-foreground;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+  }
+}

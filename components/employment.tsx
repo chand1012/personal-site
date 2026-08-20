@@ -1,7 +1,7 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Briefcase, Calendar, MapPin, ExternalLink } from "lucide-react";
+import { Briefcase, Calendar, ExternalLink, MapPin } from "lucide-react";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface Job {
   company: string;
@@ -10,7 +10,7 @@ interface Job {
   location: string;
   startDate: string;
   endDate: string | null;
-  description: string;
+  summary: string;
   highlights: string[];
   tech: string[];
 }
@@ -20,180 +20,170 @@ const employment: Job[] = [
     company: "Saphira AI (YC S24)",
     url: "https://saphira.ai",
     title: "Senior Full Stack Engineer",
-    location: "San Francisco, CA - Remote",
+    location: "Remote",
     startDate: "2025-12",
     endDate: null,
-    description:
-      "Building the future of AI-powered safety compliance & product certification.",
+    summary: "AI-powered safety compliance and product certification.",
     highlights: [
-      "Working with startup and enterprise clients to build their perfect AI powered safety compliance & product certification platform.",
-      "Re-architecting backend and frontend to support modern AI powered features and development.",
-      "Building out CI/CD pipeline to support modern rapid development and deployment on AWS and on-premise.",
+      "Partner with startup and enterprise customers to translate safety and certification workflows into product features.",
+      "Re-architect React and Python systems to support modern AI-assisted workflows.",
+      "Build CI/CD delivery for AWS and on-premise deployments.",
     ],
-    tech: ["Typescript", "Python", "OpenAI GPT", "React", "FastAPI"],
+    tech: ["TypeScript", "Python", "React", "FastAPI", "AWS"],
   },
   {
-    company: "Hypha",
+    company: "Hypha / GoGoPool (formerly Multisig Labs)",
     url: "https://hypha.sh",
     title: "Full Stack Engineer",
-    location: "Houston, TX - Remote",
+    location: "Remote",
     startDate: "2022-01",
     endDate: "2025-12",
-    description:
-      "Built the premier liquid staking platform on the Avalanche blockchain.",
+    summary: "Liquid staking and validator infrastructure on Avalanche.",
     highlights: [
-      "Maintained Go-based multi-signature cross-chain wallet infrastructure.",
-      "Build and maintained Next.js frontend for managing validator nodes and liquid staking.",
-      "Managed blockchain infrastructure and network operations across multiple cloud providers.",
+      "Maintained Go-based multi-signature, cross-chain wallet infrastructure.",
+      "Built and maintained a Next.js interface for validator and liquid-staking operations.",
+      "Operated blockchain infrastructure across cloud providers under uptime requirements.",
     ],
-    tech: ["Typescript", "Go", "Next.js", "Avalanche Blockchain", "Web3"],
+    tech: ["Go", "TypeScript", "Next.js", "AWS", "Ansible"],
   },
   {
-    company: "Pillar.gg (Defunct)",
+    company: "Pillar.gg",
     title: "Full Stack Contractor",
-    location: "Akron, OH - Remote",
+    location: "Remote",
     startDate: "2020-12",
     endDate: "2022-01",
-    description:
-      "Built and maintained AI powered stream highlights for Twitch and YouTube streamers.",
+    summary: "Automated stream highlights for Twitch and YouTube creators.",
     highlights: [
-      "Developed and maintained Dockerized Python and NodeJS Lambda functions for processing video and chat data in real-time.",
-      "Built and maintained React-based dashboard for managing and analyzing stream data and video clips.",
-      "Used AWS CDK to deploy infrastructure and automate deployment pipelines.",
+      "Built Dockerized Python and Node.js Lambda workloads for real-time video and chat processing.",
+      "Developed the React dashboard used to manage stream data and generated clips.",
+      "Defined AWS infrastructure and deployment automation with CDK.",
     ],
-    tech: ["JavaScript", "Python", "NodeJS", "React", "AWS CDK"],
+    tech: ["Node.js", "Python", "React", "Docker", "AWS CDK"],
   },
   {
-    company: "Sealed Air - AUTOBAG® Division",
+    company: "Sealed Air — AUTOBAG®",
     url: "https://www.sealedair.com/products/brand/autobag",
     title: "Software Engineering Intern",
-    location: "Streetsboro, OH - Onsite",
+    location: "Streetsboro, Ohio",
     startDate: "2019-05",
     endDate: "2020-01",
-    description:
-      "Maintained and extended embedded Linux OS & web-based HID UI for bagging machines.",
+    summary:
+      "Embedded Linux and web interfaces for industrial bagging systems.",
     highlights: [
-      "Maintained Yocto-based embedded Linux OS for bagging systems control.",
-      "Extended web-based UI for bagging machines to support new features and bug fixes.",
-      "Developed Python-based testing interface to validate bagging machine functionality."
+      "Maintained a Yocto-based embedded Linux operating system.",
+      "Extended the web-based machine interface with product features and fixes.",
+      "Created a Python testing interface for hardware validation.",
     ],
-    tech: ["Python", "Javascript", "Linux", "NodeJS", "Yocto"],
-  }
+    tech: ["Python", "JavaScript", "Linux", "Node.js", "Yocto"],
+  },
 ];
 
 function formatDate(dateStr: string): string {
-  // Parse YYYY-MM format manually to avoid timezone issues
   const [year, month] = dateStr.split("-").map(Number);
-  const date = new Date(year, month - 1); // month is 0-indexed
-  return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  return new Date(year, month - 1).toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+  });
 }
 
 export function Employment() {
   return (
-    <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Work{" "}
-            <span className="text-[var(--accent-green)]">Experience</span>
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Enterprise and Startup.
+    <section
+      id="experience"
+      className="scroll-mt-16 px-4 py-14 sm:px-6 lg:px-8"
+    >
+      <div className="mx-auto max-w-6xl">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker text-[var(--accent-green)]">
+              Experience
+            </p>
+            <h2 className="section-title">
+              Ownership from{" "}
+              <span className="text-[var(--accent-green)]">
+                product to operations
+              </span>
+            </h2>
+          </div>
+          <p className="section-summary">
+            Startup delivery across AI, blockchain infrastructure, media
+            systems, and embedded Linux.
           </p>
         </div>
 
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-0 md:left-1/2 transform md:-translate-x-px top-0 bottom-0 w-0.5 bg-border hidden md:block" />
-
-          <div className="space-y-8">
-            {employment.map((job, index) => (
-              <div
-                key={`${job.company}-${job.startDate}`}
-                className={`relative flex flex-col md:flex-row gap-4 md:gap-8 ${
-                  index % 2 === 0 ? "md:flex-row-reverse" : ""
-                }`}
-              >
-                {/* Timeline dot */}
-                <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-[var(--accent-green)] border-4 border-background hidden md:block" />
-
-                {/* Content */}
-                <div className="md:w-1/2 md:px-8">
-                  <Card className="border-2 hover:border-[var(--accent-green)]/50 transition-colors">
-                    <CardContent className="pt-6">
-                      <div className="flex items-start justify-between mb-2">
-                        <div>
-                          <h3 className="text-xl font-bold">{job.title}</h3>
-                          <div className="flex items-center gap-2 text-[var(--accent-green)] font-medium">
-                            <Briefcase className="h-4 w-4" />
-                            {job.url ? (
-                              <Link
-                                href={job.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 hover:underline"
-                              >
-                                {job.company}
-                                <ExternalLink className="h-3 w-3" />
-                              </Link>
-                            ) : (
-                              job.company
-                            )}
-                          </div>
-                        </div>
-                        {!job.endDate && (
-                          <Badge className="bg-[var(--accent-green)] text-white">
-                            Current
-                          </Badge>
+        <div className="space-y-4">
+          {employment.map((job) => (
+            <Card
+              key={`${job.company}-${job.startDate}`}
+              className="border-2 hover:border-[var(--accent-green)]/50"
+            >
+              <CardContent className="grid gap-5 p-5 sm:p-6 lg:grid-cols-[minmax(220px,0.8fr)_minmax(0,1.8fr)] lg:gap-8">
+                <div>
+                  <div className="mb-2 flex flex-wrap items-start justify-between gap-2">
+                    <div>
+                      <h3 className="text-xl font-bold">{job.title}</h3>
+                      <div className="mt-1 flex items-center gap-2 font-medium text-[var(--accent-green)]">
+                        <Briefcase className="h-4 w-4 shrink-0" />
+                        {job.url ? (
+                          <Link
+                            href={job.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 hover:underline"
+                          >
+                            {job.company}
+                            <ExternalLink className="h-3 w-3" />
+                          </Link>
+                        ) : (
+                          job.company
                         )}
                       </div>
-
-                      <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-4 w-4" />
-                          {formatDate(job.startDate)} -{" "}
-                          {job.endDate ? formatDate(job.endDate) : "Present"}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <MapPin className="h-4 w-4" />
-                          {job.location}
-                        </div>
-                      </div>
-
-                      <p className="text-muted-foreground mb-4">
-                        {job.description}
-                      </p>
-
-                      <ul className="space-y-2 mb-4">
-                        {job.highlights.map((highlight) => (
-                          <li
-                            key={highlight}
-                            className="text-sm flex items-start gap-2"
-                          >
-                            <span className="text-[var(--accent-green)] mt-1">
-                              &bull;
-                            </span>
-                            {highlight}
-                          </li>
-                        ))}
-                      </ul>
-
-                      <div className="flex flex-wrap gap-2">
-                        {job.tech.map((tech) => (
-                          <Badge key={tech} variant="outline" className="text-xs">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
+                    </div>
+                    {!job.endDate && (
+                      <Badge className="bg-[var(--accent-green)] text-white">
+                        Current
+                      </Badge>
+                    )}
+                  </div>
+                  <div className="space-y-1 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="h-3.5 w-3.5" />
+                      {formatDate(job.startDate)} –{" "}
+                      {job.endDate ? formatDate(job.endDate) : "Present"}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-3.5 w-3.5" /> {job.location}
+                    </div>
+                  </div>
                 </div>
 
-                {/* Spacer for alternating layout */}
-                <div className="hidden md:block md:w-1/2" />
-              </div>
-            ))}
-          </div>
+                <div>
+                  <p className="mb-3 font-medium">{job.summary}</p>
+                  <ul className="grid gap-2 text-sm sm:grid-cols-2">
+                    {job.highlights.slice(0, 2).map((highlight) => (
+                      <li key={highlight} className="flex items-start gap-2">
+                        <span className="mt-1 text-[var(--accent-green)]">
+                          ●
+                        </span>
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <details className="progressive-details mt-3">
+                    <summary>More responsibility</summary>
+                    <p>{job.highlights[2]}</p>
+                  </details>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {job.tech.map((tech) => (
+                      <Badge key={tech} variant="outline" className="text-xs">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
     </section>

@@ -19,14 +19,26 @@ export async function Blog() {
   }
 
   return (
-    <section id="blog" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Latest <span className="text-[var(--accent-red)]">Blog</span> Posts
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Thoughts on startups, development, and building products
+    <section
+      id="blog"
+      className="scroll-mt-16 bg-muted/30 px-4 py-14 sm:px-6 lg:px-8"
+    >
+      <div className="mx-auto max-w-6xl">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker text-[var(--accent-red)]">
+              Technical writing
+            </p>
+            <h2 className="section-title">
+              How I think about{" "}
+              <span className="text-[var(--accent-red)]">
+                systems and products
+              </span>
+            </h2>
+          </div>
+          <p className="section-summary">
+            Practical notes on architecture, agentic development, and shipping
+            software in real conditions.
           </p>
         </div>
 
@@ -70,8 +82,7 @@ export async function Blog() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Read on Dev.to{" "}
-                    <ExternalLink className="h-4 w-4 ml-2" />
+                    Read on Dev.to <ExternalLink className="h-4 w-4 ml-2" />
                   </Link>
                 </Button>
               </CardContent>

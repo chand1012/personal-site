@@ -16,14 +16,23 @@ export async function GitHubStats() {
   const stats = await getStats();
 
   return (
-    <section id="github-stats" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            GitHub <span className="text-accent-green">Activity</span>
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            Building in public, one commit at a time
+    <section id="github-stats" className="px-4 py-14 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker text-[var(--accent-yellow)]">
+              Open-source proof
+            </p>
+            <h2 className="section-title">
+              Work that other developers{" "}
+              <span className="text-[var(--accent-yellow)]">
+                use and extend
+              </span>
+            </h2>
+          </div>
+          <p className="section-summary">
+            A focused view of public impact rather than activity for activity's
+            sake.
           </p>
         </div>
         <GitHubStatsCards stats={stats} />
