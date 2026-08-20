@@ -50,7 +50,7 @@ export function Contact() {
               </Button>
               <Button variant="ghost" size="sm" asChild>
                 <Link
-                  href="https://x.com/chand1012"
+                  href="https://x.com/Chand1012Dev"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2"
